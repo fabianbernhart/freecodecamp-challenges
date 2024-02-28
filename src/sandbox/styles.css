@@ -1,0 +1,67 @@
+body {
+    min-height: 100vh;
+    padding: 40px, 20px;
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px auto;
+    max-width: 350px;
+    font-family: 'Castoro Titling', cursive;
+}
+
+div {
+    columns: auto;
+}
+
+input {
+    margin: 0 0 5 0;
+    justify-self: center;
+    width: 80vw;
+    background-color: #424242;
+    border-color: #616161;
+    display: block;
+    color: beige;
+    height: 1.9rem;
+    justify-content: center;
+    -moz-appearance: textfield;
+}
+
+button {
+    justify-self: center;
+    width: 80vw;
+    background-color: #424242;
+    border-color: #616161;
+    display: block;
+    color: beige;
+    height: 1.9rem;
+    justify-content: center;
+}
+
+form {
+    justify-content: center;
+    padding-left: 2vw;
+    padding-right: 2vh;
+    margin: 2vh;
+    padding-top: 0;
+    flex: auto;
+    flex-direction: column;
+}
+
+::placeholder {
+    color: #fff;
+}
+
+#output {
+    margin: 10 1;
+    width: 80vw;
+    border: 1px solid gray;
+    border-color: #616161;
+    color: beige;
+    justify-self: center;
+}
+
+#output:empty {
+    border: 0px solid gray;
+}
