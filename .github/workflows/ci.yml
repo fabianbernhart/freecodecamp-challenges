@@ -8,8 +8,12 @@ on:
 # thanks to abatilo
 
 jobs:
+    
     ci:
       runs-on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: ./src\machine-learning-with-python\rock-paper-scissors
       steps:
         - uses: actions/checkout@v4
         - name: Install Python
