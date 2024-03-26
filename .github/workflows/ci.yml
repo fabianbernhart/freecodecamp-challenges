@@ -5,8 +5,6 @@ on:
         - master
     pull_request:
 
-# thanks to abatilo
-
 jobs:
     
     ci:
@@ -18,12 +16,17 @@ jobs:
         - uses: actions/checkout@v4
         - name: Install Python
           uses: actions/setup-python@v4
+          with:
+            python-version: "3.11"
         - name: Install poetry
+          with:
+            poetry-version: latest
           uses: abatilo/actions-poetry@v2
         - name: Setup a local virtual environment (if no poetry.toml file)
           run: |
             poetry config virtualenvs.create true --local
             poetry config virtualenvs.in-project true --local
+            poetry env zúse
         - uses: actions/cache@v3
           name: Define a cache for the virtual environment based on the dependencies lock file
           with:
