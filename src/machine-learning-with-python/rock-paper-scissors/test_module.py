@@ -1,5 +1,5 @@
 import unittest
-from RPS_game import play, mrugesh, abbey, quincy, kris
+from RPS_game import play, mrugesh, abbey, quincy, kris, human
 from RPS import player
 
 
