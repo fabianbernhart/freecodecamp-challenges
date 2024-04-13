@@ -1,73 +1,45 @@
-import random
-from enum import Enum
-from typing import List
-
-import joblib
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-
-
-class MoveToInt(Enum):
-    R: int = 0
-    P: int = 1
-    S: int = 2
-
-
-def old_player(prev_play, opponent_history=[]):
+def player(prev_play, opponent_history=[]):
     opponent_history.append(prev_play)
+    guess: str = 'S'
+    if not prev_play:
+        opponent_history.clear()
+        return guess
 
-    guess = "R"
+    rock_count: int = 0
+    paper_count: int = 0
+    scissors_count: int = 0
+    for i in range(len(opponent_history) - 1):
+        if opponent_history[i] == prev_play:
+            next = opponent_history[i + 1]
+            if next == 'R':
+                rock_count += 1
+            if next == 'P':
+                paper_count += 1
+            if next == 'S':
+                scissors_count += 1
+
+    rock_guess: int = scissors_count
+    paper_guess: int = rock_count
+    scissors_guess: int = paper_count
+
+    max_guess = max(rock_guess, paper_guess, scissors_guess)
+    if max_guess == rock_guess:
+        guess = 'R'
+    if max_guess == paper_guess:
+        guess = 'P'
+    if max_guess == scissors_guess:
+        guess = 'S'
+
+    big_brain = {
+        'P': 'R',
+        'R': 'S',
+        'S': 'P',
+    }
     if len(opponent_history) > 2:
-        guess = opponent_history[-2]
+        if opponent_history[-1] == opponent_history[-2] != opponent_history[-3]:
+            guess = big_brain[prev_play]
+
+    if rock_count == paper_count == scissors_count == 0:
+        guess = prev_play
 
     return guess
-
-
-def random_choice(choice) -> str:
-    if choice == "R":
-        return random.choice(["P", "S"])
-    if choice == "P":
-        return random.choice(["R", "S"])
-
-    return random.choice(["R", "P"])
-
-
-def ml_player(prev_play, opponent_history=[]):
-    x: List[List[int]] = [[0], [1], [2], [0], [0], [1], [0], [1], [2], [2]]
-    y: List[int] = [1, 2, 0, 0, 1, 0, 1, 2, 2, 2]
-
-    # if len(opponent_history) == 0:
-    #    return random_choice(prev_play)
-
-    # for opponent_move in opponent_history:
-    #
-    #    if opponent_move == "":
-    #        return "R"
-    #
-    #    current_move: int = MoveToInt[prev_play].value
-    #    next_move: int = MoveToInt[opponent_move].value
-    #    X.append([current_move])
-    #    Y.append(next_move)
-    #    prev_play = opponent_move
-
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
-
-    ml_model = DecisionTreeClassifier()
-    ml_model.fit(x_test, y_test)
-
-    joblib.dump(ml_model, '.rock-paper-sisccors.joblib')
-
-    predictions = ml_model.predict(x_test)
-
-    # score = accuracy_score(y_test, predictions)
-
-
-def player(prev_play, opponent_history=[]):
-    ml_guess = ml_player(prev_play, opponent_history)
-
-    print("Test", ml_guess)
-
-    opponent_history.append(prev_play)
-
-    return "R"

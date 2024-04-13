@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-scikit-learn = "^1.4.1.post1"
+pytest= "8.0.2"
 
 
 [build-system]
