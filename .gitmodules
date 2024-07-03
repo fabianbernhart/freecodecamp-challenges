@@ -1,0 +1,3 @@
+[submodule "projects/rock-paper-scissors"]
+	path = projects/rock-paper-scissors
+	url = https://github.com/fabianbernhart/rock-paper-scissors.git
